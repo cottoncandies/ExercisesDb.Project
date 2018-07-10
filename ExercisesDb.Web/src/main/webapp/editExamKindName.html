@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/js/jquery-2.1.0.min.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="exam-kind-name-title">
+    <div>
+        <a href="#" class="modal_close" title="关闭"></a>
+    </div>
+    <div class="txt-fld" style="overflow-y:auto;padding-top:17%;padding-left:15.5%">
+        <label style="padding: 0 0 0 20%">试题类型: </label>
+        <input type="text" id="exam-kind-name" style="width: 180px;height: 30px">
+    </div>
+    <button id="save" onclick="save()" style="width: 80px;height: 30px;margin:40px 0 0 47%">确定</button>
+</div>
+</body>
+<script type="text/javascript">
+    //获取url参数方法
+    if (window.parent.document.getElementsByClassName("layui-layer-close1")[0]) {
+        window.parent.document.getElementsByClassName("layui-layer-close1")[0].innerHTML = "X"
+    }
+
+    function GetQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return decodeURI(r[2]);
+        return null;
+    }
+
+    function save() {
+        // if (GetQueryString("op") >= 0) {
+        $.ajax({
+            url: "/MyPaperStructs/editExamKindName",
+            type: "get",
+            async: false,
+            data: {
+                op: GetQueryString("op"),
+                num: GetQueryString("position"),
+                kindName: $("#exam-kind-name").val(),
+                paperId: GetQueryString("paperId")
+            },
+            success: function (data) {
+                window.parent.document.getElementsByClassName("layui-layer-close1")[0].click()
+            }
+        });
+//         } else if (GetQueryString("op")) {
+//             $.ajax({
+//                 url: "/MyPaperStructs/editExamKindName?kindName=" + $("#exam-kind-name").val(),
+//                 type: "get",
+//                 async: false,
+//                 data: {
+//                     op: GetQueryString("op"),
+//                     num: GetQueryString("position"),
+//                     kindName: $("#exam-kind-name").val(),
+//                     paperId: GetQueryString("paperId")
+//                 },
+//                 success: function (data) {
+//                     window.parent.document.getElementsByClassName("layui-layer-close1")[0].click()
+// //                $(".layui-layer-setwin").click()
+// //                document.getElementById("container").innerHTML = data.data.mingti;
+//
+//                 }
+//             });
+//         }
+
+    }
+
+    if (GetQueryString("position") >= 0) {
+        $.ajax({
+            url: "/MyPaperStructs/loadTestCenter",
+            type: "get",
+            async: false,
+            data: {paperId: GetQueryString("paperId")},
+            success: function (data) {
+                $("#exam-kind-name").val(data.data.data[GetQueryString("position")].kindName)
+            }
+        });
+    }
+</script>
+</html>

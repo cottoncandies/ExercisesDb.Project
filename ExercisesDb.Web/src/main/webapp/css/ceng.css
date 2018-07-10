@@ -1,0 +1,654 @@
+/*body,div,ul,ol,li,dl,dt,dd,table,tr,th,td,form,textarea{ margin:0; padding:0; text-decoration:none;}
+body{font:14px/1.5 "Microsoft YaHei",'微软雅黑','宋体',arial,simsun,sans-serif,STHeiti; color:#333; background:#fff;}
+ul,ol,li,dl,dt,dd{ list-style-type:none;}
+li{ vertical-align:bottom;}
+h1,h2,h3,h4,h5,h6,form{ margin:0; padding:0;}
+img{ vertical-align: middle; border:0;}
+a:link,a:visited{ color:#333; text-decoration:none;}
+a:hover,a:active{ color:#2DAAF2; text-decoration:none;}
+a.noLine:hover,a.noLine:active{ text-decoration:none;}
+*/
+
+#lean_overlay {
+    position: fixed;
+    z-index: 100;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    background: #b2b2b2;
+    display: none;
+}
+
+#OpenWindow {
+    background: none repeat scroll 0 0 #FFFFFF;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.7);
+    display: none;
+    padding-bottom: 2px;
+    width: 404px;
+    z-index: 1100;
+    left: 50%;
+    margin-left: -202px;
+    opacity: 0.5;
+    position: fixed;
+    top: 200px;
+}
+
+#OpenWindow-header {
+    background: url("/images/hd-bg.png") repeat scroll 0 0 transparent;
+    border-bottom: 1px solid #CCCCCC;
+    padding: 18px 18px 14px;
+}
+
+.modal_close {
+    background: url("/images/modal_close.png") no-repeat;
+    display: block;
+    height: 28px;
+    position: absolute;
+    right: 1px;
+    top: 9px;
+    width: 28px;
+    z-index: 2;
+}
+
+/*.modal_close:hover {*/
+    /*background: url("/images/modal_close_hover.png") no-repeat;*/
+    /*display: block;*/
+    /*height: 28px;*/
+    /*position: absolute;*/
+    /*right: 1px;*/
+    /*top: 9px;*/
+    /*width: 28px;*/
+    /*z-index: 2;*/
+/*}*/
+
+#OpenWindow_nomessage button {
+    display: block;
+    height: 30px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    width: 60px;
+    z-index: 2;
+    background: #80D1F3;
+    color: #FFFFFF;
+    cursor: pointer;
+    border: 1px solid #80D1F3;
+}
+
+#OpenWindow_nomessage button:hover {
+    display: block;
+    height: 30px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    width: 60px;
+    z-index: 2;
+    background: #42baf0;
+    color: #FFFFFF;
+    border: 1px solid #42baf0;
+    cursor: pointer;
+}
+
+.modal_close_nomsg {
+
+}
+
+.modal_close_nomsg:hover {
+
+}
+
+.OpenWindow_nomessage_content {
+    font-size: 16px;
+    margin-top: 30px;
+    margin-left: 80px;
+}
+
+#OpenWindow .txt-fld {
+    border-bottom: 1px solid #EEEEEE;
+    padding: 14px 20px;
+    position: relative;
+    text-align: right;
+    width: 364px;
+}
+
+#OpenWindow .txt-fld input {
+    background: none repeat scroll 0 0 #F7F7F7;
+    border-color: #CCCCCC #E7E6E6 #E7E6E6 #CCCCCC;
+    border-style: solid;
+    border-width: 1px;
+    color: #222222;
+    font-family: "Helvetica Neue";
+    font-size: 1.2em;
+    outline: medium none;
+    padding: 8px;
+    width: 244px;
+    margin-right: 15px;
+}
+
+#OpenWindow .txt-fld input.good_input {
+    background: url("../plugins/cengEffect/Image/good.png") no-repeat scroll 236px center #DEF5E1;
+}
+
+#OpenWindow .btn-fld {
+    overflow: hidden;
+    margin: 5px auto;
+    width: 335px;
+}
+
+#OpenWindow button {
+    background: none repeat scroll 0 0 #5BC5FB;
+    cursor: pointer;
+    color: #FFFFFF;
+    float: right;
+    font-family: Verdana;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 7px 10px;
+    width: auto;
+    border: 1px solid #5BC5FB;
+}
+
+#OpenWindow button:hover {
+    background: none repeat scroll 0 0 #42baf0;
+    cursor: pointer;
+    color: #FFFFFF;
+    float: right;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 7px 10px;
+    width: auto;
+    border: 1px solid #42baf0;
+}
+
+#OpenWindow .txt-fld2 {
+    border-bottom: 1px solid #EEEEEE;
+    padding: 4px 10px;
+    position: relative;
+    text-align: right;
+    width: 364px;
+}
+
+#OpenWindow .txt-fld2 label {
+    float: left;
+    color: #222222;
+    font-family: "Helvetica Neue";
+    font-size: 1.2em;
+    outline: medium none;
+    padding: 4px;
+    width: 124px;
+    margin-right: 5px;
+}
+
+#OpenWindow .txt-fld2 input {
+    background: none repeat scroll 0 0 #F7F7F7;
+    border-color: #CCCCCC #E7E6E6 #E7E6E6 #CCCCCC;
+    border-style: solid;
+    border-width: 1px;
+    color: #222222;
+    font-family: "Helvetica Neue";
+    font-size: 1.2em;
+    outline: medium none;
+    padding: 4px;
+    width: 24px;
+    margin-right: 5px;
+}
+
+#OpenWindowDownSetting {
+    background: none repeat scroll 0 0 #FFFFFF;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.7);
+    display: none;
+    padding-bottom: 2px;
+    width: 404px;
+    z-index: 1100;
+    left: 50%;
+    margin-left: -202px;
+    opacity: 0.5;
+    position: fixed;
+    top: 200px;
+}
+
+#OpenWindow-header1 {
+    background: url("/images/hd-bg.png") repeat scroll 0 0 transparent;
+    border-bottom: 1px solid #CCCCCC;
+    padding: 18px 18px 14px;
+}
+
+#OpenWindow-header_nomsg {
+    background: #57bbf4;
+    border-bottom: 1px solid #CCCCCC;
+    padding: 8px 8px 8px;
+}
+
+#OpenWindowDownSetting .txt-fld {
+    border-bottom: 1px solid #EEEEEE;
+    padding: 14px 20px;
+    position: relative;
+    text-align: right;
+    width: 364px;
+}
+
+#OpenWindowDownSetting .txt-fld input {
+    background: none repeat scroll 0 0 #F7F7F7;
+    border-color: #CCCCCC #E7E6E6 #E7E6E6 #CCCCCC;
+    border-style: solid;
+    border-width: 1px;
+    color: #222222;
+    font-family: "Helvetica Neue";
+    font-size: 1.2em;
+    outline: medium none;
+    padding: 8px;
+    width: 244px;
+    margin-right: 15px;
+}
+
+#OpenWindowDownSetting .txt-fld input.good_input {
+    background: url("../plugins/cengEffect/Image/good.png") no-repeat scroll 236px center #DEF5E1;
+}
+
+#OpenWindowDownSetting .btn-fld {
+    overflow: hidden;
+    margin: 5px auto;
+    width: 335px;
+}
+
+#OpenWindowDownSetting button {
+    background: none repeat scroll 0 0 #5BC5FB;
+    cursor: pointer;
+    color: #FFFFFF;
+    float: right;
+    font-family: Verdana;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 7px 10px;
+    width: auto;
+    border: 1px solid #5BC5FB;
+}
+
+#OpenWindowDownSetting button:hover {
+    background: none repeat scroll 0 0 #42baf0;
+    cursor: pointer;
+    color: #FFFFFF;
+    float: right;
+    font-family: Verdana;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 7px 10px;
+    width: auto;
+    border: 1px solid #42baf0;
+}
+
+#OpenWindowDownSetting .txt-fld2 {
+    border-bottom: 1px solid #EEEEEE;
+    padding: 4px 10px;
+    position: relative;
+    text-align: right;
+    width: 364px;
+}
+
+#OpenWindowDownSetting .txt-fld2 label {
+    float: left;
+    color: #222222;
+    font-family: "Helvetica Neue";
+    font-size: 1.2em;
+    outline: medium none;
+    padding: 4px;
+    width: 124px;
+    margin-right: 5px;
+}
+
+#OpenWindowDownSetting .txt-fld2 input {
+    background: none repeat scroll 0 0 #F7F7F7;
+    border-color: #CCCCCC #E7E6E6 #E7E6E6 #CCCCCC;
+    border-style: solid;
+    border-width: 1px;
+    color: #222222;
+    font-family: "Helvetica Neue";
+    font-size: 1.2em;
+    outline: medium none;
+    padding: 4px;
+    width: 24px;
+    margin-right: 5px;
+}
+
+/*#lean_overlay_Edit { position: fixed; z-index: 100; top: 0px; left: 0px; height: 100%; width: 100%; background: #b2b2b2; display: none; }*/
+#OpenWindow_Edit {
+    background: none repeat scroll 0 0 #FFFFFF;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.7);
+    display: none;
+    padding-bottom: 2px;
+    width: 1004px;
+    height: 550px;
+    z-index: 1100;
+    left: 50%;
+    margin-left: -202px;
+    opacity: 0.5;
+    position: fixed;
+    top: 200px;
+}
+
+#OpenWindow-header_Edit {
+    background: url("../plugins/cengEffect/Image/hd-bg.png") repeat scroll 0 0 transparent;
+    border-bottom: 1px solid #CCCCCC;
+    padding: 18px 18px 14px;
+    height: 10px;
+}
+
+#OpenWindow_Edit .btn-fld {
+    overflow: hidden;
+    margin: 5px auto;
+    width: 965px;
+}
+
+.a_select {
+    background: none repeat scroll 0 0 #5BC5FB;
+    color: #FFFFFF;
+    float: left;
+    font-family: Verdana;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 1px 2px;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+    width: auto;
+}
+
+.a_default {
+    background: none repeat scroll 0 0 #fff;
+    color: #FFFFFF;
+    float: left;
+    font-family: Verdana;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 1px 2px;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+    width: auto;
+}
+
+#OpenWindow_Detail, #OpenWindow_addQuestion {
+    background: none repeat scroll 0 0 #FFFFFF;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.7);
+    display: none;
+    padding-bottom: 2px;
+    width: 1004px;
+    height: 550px;
+    z-index: 1100;
+    left: 50%;
+    margin-left: -202px;
+    opacity: 0.5;
+    top: 200px;
+}
+
+#OpenWindow-header_Detail, #OpenWindow-header_addQuestion {
+    background: url("../plugins/cengEffect/Image/hd-bg.png") repeat scroll 0 0 transparent;
+    border-bottom: 1px solid #CCCCCC;
+    padding: 18px 18px 14px;
+    height: 10px;
+}
+
+/*#OpenWindow-header_nomsg {*/
+/*background: url("../plugins/cengEffect/Image/hd-bg.png") repeat scroll 0 0 transparent;*/
+/*border-bottom: 1px solid #CCCCCC;*/
+/*padding: 18px 18px 14px;*/
+/*height: 10px;*/
+/*}*/
+
+/*和上面那个关闭按钮一样的样式，这个名称不一样是为了让点击关闭时 做一些事情 完毕后再 调用上面那个关闭层*/
+.editor_close, .addQuestion_close {
+    background: url("../plugins/cengEffect/Image/modal_close.png") repeat scroll 0 0 transparent;
+    display: block;
+    height: 28px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    width: 28px;
+    z-index: 2;
+}
+
+/*添加试题弹出层 同上 用,隔开了 */
+
+/*组卷中心 修改分数 弹出层*/
+#OpenWindow_Score {
+    background: none repeat scroll 0 0 #FFFFFF;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.7);
+    display: none;
+    padding-bottom: 2px;
+    width: 404px;
+    z-index: 1100;
+    left: 50%;
+    margin-left: -202px;
+    opacity: 0.5;
+    position: fixed;
+    top: 200px;
+}
+
+#OpenWindow-header_Score {
+    background: url("../plugins/cengEffect/Image/hd-bg.png") repeat scroll 0 0 transparent;
+    border-bottom: 1px solid #CCCCCC;
+    padding: 18px 18px 14px;
+}
+
+#OpenWindow_Score .txt-fld {
+    border-bottom: 1px solid #EEEEEE;
+    padding: 14px 20px;
+    position: relative;
+    text-align: right;
+    width: 364px;
+}
+
+#OpenWindow_Score .txt-fld input {
+    background: none repeat scroll 0 0 #F7F7F7;
+    border-color: #CCCCCC #E7E6E6 #E7E6E6 #CCCCCC;
+    border-style: solid;
+    border-width: 1px;
+    color: #222222;
+    font-family: "Helvetica Neue";
+    font-size: 1.2em;
+    outline: medium none;
+    padding: 8px;
+    width: 244px;
+    margin-right: 15px;
+}
+
+#OpenWindow_Score .btn-fld {
+    overflow: hidden;
+    margin: 5px auto;
+    width: 335px;
+}
+
+#OpenWindow_Score button {
+    background: none repeat scroll 0 0 #5BC5FB;
+    cursor: pointer;
+    color: #FFFFFF;
+    float: right;
+    font-family: Verdana;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 7px 10px;
+    width: auto;
+    border: 1px solid #5BC5FB;
+}
+
+#OpenWindow_Score button:hover {
+    background: none repeat scroll 0 0 #42baf0;
+    cursor: pointer;
+    color: #FFFFFF;
+    float: right;
+    font-family: Verdana;
+    font-size: 13px;
+    font-weight: bold;
+    overflow: visible;
+    padding: 7px 10px;
+    width: auto;
+    border: 1px solid #42baf0;
+}
+
+.topnavh {
+    width: 93.5%;
+    height: 30px;
+    text-align: center;
+    border-bottom: 1px solid #CCC;
+    margin: 0px auto;
+    padding: 9px 3% 0px;
+    background-color: #fff;
+}
+
+.topnavh a {
+    display: inline-block;
+    width: 100px;
+    margin: 0 20px;
+    font: 100 16px/30px 微软雅黑;
+    color: #666;
+    border-bottom: 2px solid #ccc;
+    text-align: center;
+}
+
+.topnavh a:hover {
+    color: #333;
+    border-bottom: 2px solid #999;
+}
+
+.topnavh a.tips {
+    color: #1497E4;
+    border-bottom: 2px solid #1497E4;
+    font: 700 16px/30px 微软雅黑;
+}
+
+.conten {
+    width: 100%;
+    height: auto;
+    margin: 5px auto;
+    max-height: 440px;
+}
+
+.center {
+    width: 98%;
+    height: 50px;
+    margin: 5px auto;
+    text-align: center;
+}
+
+a.butl {
+    width: 132px;
+    height: 42px;
+    font: 100 17px/42px 微软雅黑;
+    background: url(../images/btl.png) no-repeat center;
+    color: #FFF;
+    text-align: center;
+    margin: 0px 15px;
+    display: inline-block;
+    border: 0px;
+}
+
+a.butl:hover {
+    background: url(../images/btlh.png) no-repeat center;
+    color: #fff;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.butl {
+    width: 132px;
+    height: 42px;
+    font: 100 17px/42px 微软雅黑;
+    background: url(../images/btl.png) no-repeat center;
+    color: #FFF;
+    text-align: center;
+    margin: 0px 15px;
+    display: inline-block;
+    border: 0px;
+}
+
+.butl:hover {
+    background: url(../images/btlh.png) no-repeat center;
+    color: #fff;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.reg div .input {
+    height: 28px;
+    line-height: 22px;
+    width: 320px;
+    color: #333;
+    padding-top: 4px;
+    font-size: 15px;
+    padding-left: 5px;
+}
+
+.reg {
+    width: 600px;
+    margin: 8px auto;
+}
+
+.reg h1 {
+    display: block;
+    padding-left: 120px;
+    color: #666;
+    font: 12px/30px "黑体";
+}
+
+.reg em {
+    color: #f30;
+    font-style: normal;
+}
+
+.reg fieldset {
+    margin: 0;
+    padding: 0;
+    border: solid 0 transparent;
+}
+
+.reg legend {
+    text-indent: -1000em;
+}
+
+.reg label {
+    float: left;
+    width: 12em;
+    text-align: right;
+    font: 16px/37px "黑体";
+    color: #666;
+}
+
+.reg div {
+    clear: left;
+    padding: 8px 0;
+    background: #fff;
+}
+
+.reg div select .input option {
+    font: 100 16px/22px 微软雅黑;
+}
+
+.reg div .input1 {
+    height: 35px;
+    line-height: 32px;
+    width: 320px;
+    color: #333;
+    font-size: 15px;
+    padding-left: 5px;
+}
+
+.reg div select .input1 option {
+    font: 100 16px/33px 微软雅黑;
+}
+
+.reg div .textarea {
+    line-height: 22px;
+    width: 315px;
+    color: #333;
+    font-size: 15px;
+    padding: 5px;
+}
+
+.hh {
+    color: #1497E4;
+    padding-top: 45px;
+    line-height: 35px;
+    padding-left: 5px;
+    font-weight: 600;
+}
+
+
+
+

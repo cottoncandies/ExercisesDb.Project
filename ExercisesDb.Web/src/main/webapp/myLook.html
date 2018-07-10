@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta charset="utf-8">
+    <title>组卷 - 备课助手</title>
+    <meta name="viewport" content="width=device-width">
+    <script src="/js/jquery-2.1.0.min.js" type="text/javascript"></script>
+
+    <link rel="stylesheet" href="/css/layer.css" id="layui_layer_skinlayercss" style="">
+    <style type="text/css">
+    .jstree ul, .jstree li {
+        display: block;
+        margin: 0 0 0 0;
+        padding: 0 0 0 0;
+        list-style-type: none;
+    }
+
+    .jstree li {
+        display: block;
+        min-height: 24px;
+        line-height: 24px;
+        white-space: nowrap;
+        margin-left: 18px;
+    }
+
+    .jstree > ul > li {
+        margin-left: 0px;
+    }
+
+    .jstree ins {
+        display: inline-block;
+        text-decoration: none;
+        width: 18px;
+        height: 18px;
+        margin: 0 0 0 0;
+        padding: 0;
+    }
+
+    #main #leftdiv .jstree a {
+        font-size: 14px;
+        display: inline-block;
+        line-height: 16px;
+        height: 16px;
+        color: #333;
+        white-space: nowrap;
+        text-decoration: none;
+        margin: 0;
+    }
+
+    .jstree a {
+        font-size: 14px;
+        display: inline-block;
+        line-height: 16px;
+        height: 16px;
+        color: #333;
+        white-space: nowrap;
+        text-decoration: none;
+        margin: 0px;
+    }
+
+    .jstree a:focus {
+        outline: none;
+    }
+
+    .jstree a > ins {
+        height: 16px;
+        width: 16px;
+    }
+
+    .jstree a > .jstree-icon {
+        margin-right: 8px;
+    }
+
+    li.jstree-open > ul {
+        display: block;
+    }
+
+    li.jstree-closed > ul {
+        display: none;
+    } </style>
+    <style type="text/css">
+    #vakata-dragged {
+        display: block;
+        margin: 0 0 0 0;
+        padding: 4px 4px 4px 24px;
+        position: absolute;
+        left: -2000px;
+        top: -2000px;
+        line-height: 16px;
+    }
+    </style>
+    <style type="text/css">
+    #vakata-dragged ins {
+        display: block;
+        text-decoration: none;
+        width: 16px;
+        height: 16px;
+        margin: 0 0 0 0;
+        padding: 0;
+        position: absolute;
+        top: 4px;
+        left: 4px;
+    }
+
+    #vakata-dragged .jstree-ok {
+        background: green;
+    }
+
+    #vakata-dragged .jstree-invalid {
+        background: red;
+    }
+
+    #jstree-marker {
+        padding: 0;
+        margin: 0;
+        line-height: 12px;
+        font-size: 1px;
+        overflow: hidden;
+        height: 12px;
+        width: 8px;
+        position: absolute;
+        left: -45px;
+        top: -30px;
+        z-index: 1000;
+        background-repeat: no-repeat;
+        display: none;
+        background-color: silver;
+    }
+    </style>
+    <style type="text/css">
+    #vakata-contextmenu {
+        display: none;
+        position: absolute;
+        margin: 0;
+        padding: 0;
+        width: 100px;
+        background: #ebebeb;
+        border: 1px solid silver;
+    }
+
+    #vakata-contextmenu ul {
+        width: 100px;
+    }
+
+    #vakata-contextmenu ul, #vakata-contextmenu li {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        display: block;
+    }
+
+    #vakata-contextmenu li {
+        line-height: 20px;
+        height: 20px;
+        position: relative;
+        padding: 0px;
+    }
+
+    #vakata-contextmenu li a {
+        padding: 1px 6px;
+        line-height: 17px;
+        display: block;
+        text-decoration: none;
+        margin: 1px 1px 0 1px;
+    }
+
+    #vakata-contextmenu li ins {
+        float: left;
+        width: 16px;
+        height: 16px;
+        text-decoration: none;
+        margin-right: 2px;
+    }
+
+    #vakata-contextmenu li a:hover, #vakata-contextmenu li.vakata-hover > a {
+        background: gray;
+        color: white;
+    }
+
+    #vakata-contextmenu li ul {
+        display: none;
+        position: absolute;
+        top: -2px;
+        left: 100%;
+        background: #ebebeb;
+        border: 1px solid gray;
+    }
+
+    #vakata-contextmenu .right {
+        right: 100%;
+        left: auto;
+    }
+
+    #vakata-contextmenu .bottom {
+        bottom: -1px;
+        top: auto;
+    }
+
+    #vakata-contextmenu li.vakata-separator {
+        min-height: 0;
+        height: 1px;
+        line-height: 1px;
+        font-size: 1px;
+        overflow: hidden;
+        margin: 0 2px;
+        background: silver; /* border-top:1px solid #fefefe; */
+        padding: 0;
+    }
+    </style>
+    <script type="text/javascript">
+        var _paperChanged = false;
+        function _setPapperChanged(v)
+        {
+//            _paperChanged = v;
+//            if (typeof(window.parent.tikuSaveState) !== 'undefined'){
+//                window.parent.tikuSaveState=!v;
+//            }
+        }
+        function _savePaperData(){
+            $("#wanc").trigger("click");
+            deleteQuestionsAndQuestionType()
+
+            return true;
+        }
+    </script>
+</head>
+
+<body oncontextmenu="return ;" ondragstart="return false;" onselectstart="return false;"
+      onselect="document.selection.empty();">
+
+<link href="/css/layout.css" rel="stylesheet" type="text/css">
+<link href="/css/list.css" rel="stylesheet" type="text/css">
+<link href="/css/tanchu.css" rel="stylesheet" type="text/css">
+<link href="/css/main.css" rel="stylesheet" type="text/css">
+<script src="/js/js_tool.js" type="text/javascript"></script>
+<script src="/js/jquery.jstree.min.js" type="text/javascript"></script>
+<link href="/css/simplepop.css" rel="stylesheet" type="text/css">
+<script src="/js/simplepop.js" type="text/javascript"></script>
+<script src="/js/layer.js"></script>
+<link href="/css/ceng.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+    #pui_main {
+        /*min-height:620px;*/
+        height: 640px;
+        overflow-y: auto;
+    }
+</style>
+<!--<input type="text" id="paperId" value="#(paperId??)">-->
+
+<div class="wappw topnav">
+    <div class="nav">
+        <div class="subject-container">
+            <span id="CurrentPeriodSubject"></span>
+        </div>
+    </div>
+    <span onclick="goBack()" class="goback">返回</span>
+    <div id="topmenu"></div>
+</div>
+
+<div id="mainzj" style="position: relative; margin-right:0.5%" class="wappw5">
+    <div id="rightdiv">
+        <div id="pui_box">
+            <div id="pui_root" align="left">
+                <div id="pui_main" style="height: 200px;">
+                    <div id="pui_head">
+                        <div id="pui_title">
+                            <div id="pui_maintitle" title="点击设置&quot;试卷主标题&quot;"
+                                 style="margin-top: 10px; color: rgb(0, 0, 0); cursor: pointer;">试卷标题：___________
+                            </div>
+                        </div>
+                        <div id="pui_testinfo" title="点击设置&quot;试卷信息栏&quot;"
+                             style="position: static; display: block; color: rgb(0, 0, 0); cursor: pointer;">
+                            考试范围：___________；考试时间：___________；命题人：___________；满分：<span id="pui_testinfo_score">6</span>分
+                            <div style="position: absolute; top: 0px; left: 0px; z-index: 9999999; background-color: rgb(255, 255, 0); opacity: 0; width: 1454px; height: 18px; display: none;"></div>
+                        </div>
+                        <div id="pui_inputInfo" style="color: rgb(0, 0, 0); position: static; display: block;">
+                            学校：___________班级：___________姓名：___________考号：___________
+                            <div style="position: absolute; top: 0px; left: 0px; z-index: 9999999; background-color: rgb(255, 255, 0); opacity: 0; width: 1454px; height: 18px; display: none;"></div>
+                        </div>
+                        <div id="pui_score">
+                            <table align="center" border="1" cellpadding="0" cellspacing="0" id="pui_scoretable"
+                                   title="得分栏">
+                                <tbody>
+                                <tr>
+                                    <td>题号</td>
+                                    <td>一</td>
+                                    <td>二</td>
+                                    <td>三</td>
+                                    <td>四</td>
+                                    <td>五</td>
+                                    <td>六</td>
+                                    <td>总分</td>
+                                </tr>
+                                <tr>
+                                    <td>得分</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="pui_body" style=" min-height:350px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<div id="rightmenu">-->
+
+    <!--</div>-->
+</div>
+
+<script src="/js/publicMethod.js" type="text/javascript"></script>
+<script src="/js/tikuTestBasket.js" type="text/javascript"></script>
+<script src="/js/tikuLookWord.js" type="text/javascript"></script>
+<script src="/js/tikuPaperFormat.js" type="text/javascript"></script>
+<script src="/js/jquery.leanModal.min.js" type="text/javascript"></script>
+<script src="/js/tikuTestCenter.js" type="text/javascript"></script>
+<script language="javascript" type="text/javascript">
+
+    $("#CurrentPeriodSubject").text(GetQueryString("section"));
+
+    var flagIsZJZX = true; //设置当前页面是组卷中心，在组卷中心清除题型或者清空试题篮后要重新加载页面
+    $(document).ready(function () {
+        pageResize();
+        $('a[rel*=leanModal]').leanModal({top: 115, closeButton: ".modal_close"});//130
+    });
+
+    $(window).resize(function () {
+        pageResize();
+        v_jsLayer.reLayout(); //解决弹出层在 页面大小改变时也要改变的问题
+    });
+
+    function pageResize() {
+        var rightContent = $("#pui_main");
+        var rightTopHeight = 45; //91
+        var s = $(document).scrollTop();
+        var wHeight = $(window).height();
+        if (wHeight < ($(document).height() - s)) {
+            rightContent.css("height", wHeight - rightTopHeight);
+        } else {
+            rightContent.css("height", $(document).height() - s - rightTopHeight);
+        }
+    }
+
+    var paperId = GetQueryString("paperId");
+
+    if (GetQueryString("type") == 1) {
+        //试题篮
+        document.getElementById("topmenu").innerHTML = "        <div >\n" +
+            "            <a id=\"showPaperSetPage\" title=\"设置试卷格式\" href=\"javascript:;\">" +
+            "            <img class='showPaperSetPage_img' src=\"/images/paper_set_normal.png\">" +
+            "            </a>\n" +
+            "            <a id=\"wanc\"  title=\"完成组卷\">" +
+            "            <img class='wanc_img' src=\"/images/paper_complete_normal.png\">" +
+            "            </a>\n" +
+            // "            <a id=\"newtype\" href=\"#\" onclick=\"set(null,-1)\" title=\"添加新题型\">\n" +
+            // "            <img style=\"width:55px; height:55px;\" src=\"/images/newtype.png\"><br><span style=\"color:#02a499;\">添加题型</span>\n" +
+            // "            </a>\n" +
+            "            <a id=\"aOpenInfo\" href=\"#OpenWindow\" rel=\"leanModal\" style=\" display:none;\">弹出信息层</a>\n" +
+            "            <a id=\"aOpen\" href=\"#OpenWindowDownSetting\" rel=\"leanModal\" style=\" display:none;\">弹出层</a>\n" +
+            "            <a id=\"aOpen_Detail\" href=\"#OpenWindow_Detail\" rel=\"leanModal\" style=\" display:none;\">弹出详细层</a>\n" +
+            "            <a id=\"aOpen_Score\" href=\"#OpenWindow_Score\" rel=\"leanModal\" style=\" display:none;\">弹出分数层</a>\n" +
+            "            <a id=\"aOpen_nomsg\" href=\"#OpenWindow_nomessage\" rel=\"leanModal\" style=\" display:none;\">弹出分数层</a>\n" +
+            "\n" +
+            "        </div>" +
+            "        <div id=\"add_tixing\">\n" +
+            "        </div>"
+
+    } else if (GetQueryString("type") == 2) {
+        //试卷
+        document.getElementById("topmenu").innerHTML = "        <div >\n" +
+            "            <a id=\"showPaperSetPage\" title=\"设置试卷格式\" href=\"javascript:;\">" +
+            "            <img class='showPaperSetPage_img' src=\"/images/paper_set_normal.png\">" +
+            "            </a>\n" +
+            "            <a id=\"wanc\"  title=\"完成组卷\">" +
+            "            <img class='wanc_img' src=\"/images/paper_complete_normal.png\">" +
+            "            </a>\n" +
+            //            "            <a id=\"xiazai\" title=\"下载试卷\"></a>" +
+            "            <a id=\"zhongx\" title=\"我的组卷\" style='display: none' href=\"/zujuan/myPaperList\"></a>\n" +
+            //            "            <a id=\"reEdit\" title=\"重新编辑\"></a>" +
+            "            <a id=\"aOpen\" href=\"#OpenWindowDownSetting\" rel=\"leanModal\" style=\" display:none;\">弹出层</a>\n" +
+            "            <a id=\"aOpenInfo\" href=\"#OpenWindow\" rel=\"leanModal\" style=\" display:none;\">弹出层</a>\n" +
+            "            <a id=\"aOpen_Score\" href=\"#OpenWindow_Score\" rel=\"leanModal\" style=\" display:none;\">弹出分数层</a>\n" +
+            "            <a id=\"aOpen_Detail\" href=\"#OpenWindow_Detail\" rel=\"leanModal\" style=\" display:none;\">弹出详细层</a>\n" +
+            "        </div>\n" +
+            "        <div id=\"add_tixing\">\n" +
+            "        </div>"
+    }
+
+    $("#wanc").mouseover(function () {
+        $(".wanc_img").attr('src', "/images/paper_complete_hover.png");
+    });
+
+    $("#wanc").mouseleave(function () {
+        $(".wanc_img").attr('src', "/images/paper_complete_normal.png");
+    });
+
+    $("#showPaperSetPage").mouseover(function () {
+        $(".showPaperSetPage_img").attr('src', "/images/paper_set_hover.png");
+    });
+
+    $("#showPaperSetPage").mouseleave(function () {
+        $(".showPaperSetPage_img").attr('src', "/images/paper_set_normal.png");
+    });
+
+    $("#yulan").mouseover(function () {
+        $(".yulan_img").attr('src', "/images/paper_download_hover.png");
+    });
+
+    $("#yulan").mouseleave(function () {
+        $(".yulan_img").attr('src', "/images/paper_download_normal.png");
+    });
+
+    function goBack() {
+        if (_paperChanged){
+//            if(confirm("是否保存本次编辑内容？")){
+//                return;
+//            }
+            if(!confirm("是否保存本次编辑内容？")){
+                return;
+            }
+        }
+
+        deleteQuestionsAndQuestionType()
+
+        _setPapperChanged(false);
+        var fromV = GetQueryString("from");
+        var username = getQueryString("username");
+        var nickname = getQueryString("nickname");
+        if (fromV == "chapter") {
+            window.location.href = "chapter.html?username=" + username;
+        } else if (fromV == "knowledge") {
+            window.location.href = "knowledge.html?username=" + username;
+        } else if (fromV == "paper") {
+            window.location.href = "aPaper.html?username=" + username;
+        } else if (fromV == "myChapter") {
+            window.location.href = "myCollect.html?username=" + username;
+        } else if (fromV == "myKnowledge") {
+            window.location.href = "myCollectKnowledge.html?username=" + username;
+        } else if (fromV == "myPaper") {
+            window.location.href = "myCollectAPaper.html?username=" + username;
+        } else if (fromV = "myPaperList") {
+            window.location.href = "myPaperList.html?username=" + username;
+        }
+    }
+
+</script>
+
+<style type="text/css">
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+</style>
+
+<div id="OpenWindow">
+    <div id="signup-ct">
+        <div id="OpenWindow-header">
+            <h2>设置试卷信息</h2>
+            <p>以下都是必填项</p>
+            <a href="#" class="modal_close" title="关闭"></a>
+        </div>
+        <div class="txt-fld">
+            <label for="">试卷标题：</label>
+            <input type="text" name="" id="paperName" value=""> <!--class="good_input"-->
+        </div>
+        <div class="txt-fld">
+            <label for="">考试范围：</label>
+            <input type="text" name="" id="paperRange" value="">
+        </div>
+        <div class="txt-fld">
+            <label for="">考试时间：</label>
+            <input type="number" placeholder="请输入分钟数" class="layout-input" name="" id="examTime" value="">
+        </div>
+        <div class="txt-fld">
+            <label for="">命题人：</label>
+            <input type="text" name="" id="examIners" value="">
+        </div>
+        <div class="txt-fld">
+            <label for="">满分：</label>
+            <input type="text" name="" id="examScore" value="120" disabled="disabled">
+        </div>
+        <div class="btn-fld">
+            <label id="submitPaperInfoLabel" style="color:red; display:none;">以上都是必填项，试卷信息不能为空</label>
+            <button id="submitPaperInfo">确定设置</button>
+        </div>
+    </div>
+</div>
+
+<div id="OpenWindowDownSetting"
+     style="position: fixed; z-index: 11000; left: 50%; margin-left: -202px; top: 180px; opacity: 1; display: none;">
+    <div id="signup-paperFormat">
+        <div id="OpenWindow-header1">
+            <h2>设置试卷格式</h2>
+            <a href="#" class="modal_close" title="关闭"></a>
+        </div>
+        <div class="txt-fld2">
+            <label for="">试卷标题栏：</label>
+            <input type="radio" name="PaperTitle" id="Radio14" checked="checked" value="1">显示
+            <input type="radio" name="PaperTitle" id="Radio15" value="0">不显示
+        </div>
+        <div class="txt-fld2">
+            <label for="">试卷信息栏：</label>
+            <input type="radio" name="PaperInfo" id="Radio8" checked="checked" value="1">显示
+            <input type="radio" name="PaperInfo" id="Radio9" value="0">不显示
+        </div>
+        <div class="txt-fld2">
+            <label for="">考生输入栏：</label>
+            <input type="radio" name="ExamineeInput" id="Radio6" checked="checked" value="1">显示
+            <input type="radio" name="ExamineeInput" id="Radio7" value="0">不显示
+        </div>
+        <div class="txt-fld2">
+            <label for="">统分栏：</label>
+            <input type="radio" name="StatisticalScore" id="Radio4" checked="checked" value="1">显示
+            <input type="radio" name="StatisticalScore" id="Radio5" value="0">不显示
+        </div>
+        <div class="txt-fld2">
+            <label for="">评分栏：</label>
+            <input type="radio" name="MarkScore" id="Radio2" checked="checked" value="1">显示
+            <input type="radio" name="MarkScore" id="Radio3" value="0">不显示
+        </div>
+        <div class="txt-fld2">
+            <label for="">答案解析：</label>
+            <input type="radio" name="AnswerAnalysis" id="Text7" checked="checked" value="1">显示
+            <input type="radio" name="AnswerAnalysis" id="Text8" value="0">不显示
+        </div>
+        <div class="txt-fld2">
+            <label for="">分数：</label>
+            <input type="radio" name="PaperScore" id="PaperScore1" checked="checked" value="1">显示
+            <input type="radio" name="PaperScore" id="PaperScore2" value="0">不显示
+        </div>
+        <div class="txt-fld2">
+            <label for="">文档格式：</label>
+            <!--<input type="radio" name="PaperFormat" id="Radio16" value="Word" />Word
+            <input type="radio" name="PaperFormat" id="Radio17" value="Pdf" />Pdf-->
+            <input type="radio" name="PaperFormat" id="Radio18" checked="checked" value="1">Pdf
+            <input type="radio" name="PaperFormat" id="Radio19" value="2">Word
+        </div>
+        <div class="txt-fld2">
+            <label for="">纸张大小：</label>
+            <input type="radio" name="PaperSize" id="Text5" checked="checked" value="1">A3（8开）
+            <input type="radio" name="PaperSize" id="Text6" value="2">A4（16开）
+        </div>
+
+        <div class="btn-fld">
+            <button id="submitPaperSetInfo">确定设置</button>
+        </div>
+    </div>
+</div>
+
+<div id="OpenWindow_Detail">
+    <div id="OpenWindow-header_Detail">
+        <h2>试题详情</h2>
+        <a href="#" class="modal_close" title="关闭"></a>
+    </div>
+    <div class="txt-fld" id="stContent" style=" height:508px; overflow-y:auto;">
+
+    </div>
+</div>
+
+<div id="OpenWindow_Score">
+    <div id="signup-ct">
+        <div id="OpenWindow-header_Score">
+            <h2>设置试题分数</h2>
+            <p>分数是必填项</p>
+            <a href="#" class="modal_close" title="关闭"></a>
+        </div>
+        <div class="txt-fld">
+            <label id="editorScoreType">分数：</label>
+            <input type="text" name="" id="editorScoreValue" value="0"
+                   onkeyup="if(isNaN(value))execCommand('undo');checkInputScoreOnkeyup();"
+                   onafterpaste="if(isNaN(value))execCommand('undo')" onblur="checkInputScoreOnblur();">
+        </div>
+        <div class="btn-fld">
+            <label id="setQuestionScoreValueTS" style="color:red; display:none;">分数不能为空，只能有一位小数点</label>
+            <input type="hidden" value="0" id="EditScoreQuestionId">
+            <button id="submitPaperInfoScore">确定设置</button>
+        </div>
+    </div>
+</div>
+
+<div id="OpenWindow_nomessage"
+     style="position: fixed; z-index: 11000; left: 42%; top: 40%; opacity: 1; display: none;width:300px;height: 170px;background: #fff">
+    <div id="OpenWindow-header_nomsg">
+        <span>提示</span>
+        <a href="#" class="modal_close" title="关闭"></a>
+    </div>
+    <div class="OpenWindow_nomessage_content">&nbsp;&nbsp;&nbsp;&nbsp;试卷信息为空,<br>请点击<b>试卷标题</b>填写</div>
+    <button class="modal_close_nomsg" id="nomsg_click" style="top: 130px;right: 120px;">确定</button>
+</div>
+
+<div id="jstree-marker" style="display: none;"></div>
+<div id="vakata-contextmenu"></div>
+<div id="lean_overlay"></div>
+</body>
+</html>

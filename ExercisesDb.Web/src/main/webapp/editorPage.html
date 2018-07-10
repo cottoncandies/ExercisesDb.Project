@@ -1,0 +1,42 @@
+<html>
+<head>
+    <script src="/js/jquery-2.1.0.min.js" type="text/javascript"></script>
+    <link href="/css/ceng.css" rel="stylesheet" type="text/css">
+    <link href="/css/simplepop.css" rel="stylesheet" type="text/css">
+    <script src="/js/simplepop.js" type="text/javascript"></script>
+
+    <script src="/js/publicMethod.js" type="text/javascript"></script>
+    <script src="/js/editorAttrPage.js" type="text/javascript"></script>
+
+</head>
+<body><div class="topnavh">
+    <a href="#" id="A_sx" class="tips">试题属性</a>
+    <a href='javascript:setEditorContent("content","A_st","试题内容");' id="A_st" class="">试题内容</a>
+    <a href='javascript:setEditorContent("answer","A_da","试题答案");' id="A_da" class="">试题答案</a>
+    <a href='javascript:setEditorContent("analytical","A_jx","试题解析");' id="A_jx" class="">试题解析</a>
+</div>
+
+<input type="hidden" id="quesId" value="9750">
+<div class="conten" style=" height:390px; ">
+    <div class="reg">
+        <div>
+            <label>题型：</label>
+            <select name="qType" id="Editor_Type" class="input1"><option value="请选择题型">请选择题型</option><option value="选择题" selected="selected">选择题</option><option value="填空题">填空题</option><option value="排序题">排序题</option><option value="现代文阅读">现代文阅读</option><option value="文言文阅读">文言文阅读</option><option value="诗歌鉴赏">诗歌鉴赏</option><option value="语言表达">语言表达</option><option value="名著导读">名著导读</option><option value="默写">默写</option><option value="书写">书写</option><option value="作文">作文</option><option value="其他">其他</option></select>
+        </div>
+        <div>
+            <label>考查能力：</label>
+            <select name="qType" id="Editor_Ability" class="input1"><option value="请选择考查能力">请选择考查能力</option><option value="识记">识记</option><option value="理解">理解</option><option value="分析综合">分析综合</option><option value="鉴赏评价">鉴赏评价</option><option value="表达应用" selected="selected">表达应用</option><option value="探究">探究</option></select>
+        </div>
+        <div>
+            <label>难度：</label>
+            <select name="qType" id="Editor_Difficulty" class="input1"><option value="请选择难度">请选择难度</option><option value="易">易</option><option value="较易" selected="selected">较易</option><option value="中">中</option><option value="较难">较难</option><option value="难">难</option></select>
+        </div>
+        <div>
+            <label>分值：</label>
+            <input type="text" maxlength="4" id="Editor_Score" class="input" onkeyup="if(isNaN(value))execCommand('undo');Editor_ScoreOnkeyup();" onafterpaste="if(isNaN(value))execCommand('undo')" onblur="Editor_ScoreOnblur();">
+        </div>
+    </div>
+</div>
+
+<div class="center"><input name="" type="button" class="butl" value="修改试题属性" onclick="setQuestionInfo();"></div>
+</body></html>

@@ -1,0 +1,259 @@
+@charset "utf-8";
+/* CSS Document *
+Author: jiayuxing (wudixuning@163.com)
+Version: 2015.3.10*/
+.box_show {
+    top: 0px;
+    position: fixed;
+    scroll: auto;
+}
+.jstree-default li,
+.jstree-default ins { background-image:url("../images/list.png") ; background-repeat:no-repeat; background-color:transparent;  }
+.jstree-default li { background-position:-90px 0; background-repeat:repeat-y;  }
+.jstree-default li.jstree-last { background:transparent; }
+.jstree-default .jstree-open ins { background-position:-72px 0; cursor:pointer;}
+
+.jstree-default .jstree-open a ins { background-position:-20px -73px; cursor:pointer; display:inline-block;}
+.jstree-default .jstree-closed ins { background-position:-54px 0; cursor:pointer;}
+.jstree-default .jstree-closed a ins { background-position:-20px -73px; cursor:pointer; display:inline-block;}
+
+.jstree-default .jstree-leaf ins { background-position:-36px 0; cursor:pointer;}
+.jstree-default .jstree-leaf a ins { background-position: -37px -73px; display:inline-block;
+    height: 12px;
+    margin-top: 2px;
+    width: 15px;}
+
+.jstree-default .jstree-hovered { background:#e7f4f9; border:0px solid #d8f0fa;  }
+.jstree-default .jstree-clicked { background:#beebff; border:1px solid #99defd; padding:0 2px 0 0px; }
+.jstree-default a .jstree-icon { background: url("../images/list.png") no-repeat scroll -2px -73px;
+    display: block;
+    float: left;
+    margin-right: 8px;
+    overflow: hidden;}
+/*.jstree-default a.jstree-loading .jstree-icon { background:url("../images/loading1.gif") center center no-repeat !important; }*/
+
+/*.jstree-default.jstree-focused { background:#fff; }/*ffffee*/
+
+.jstree-default .jstree-no-dots li,
+.jstree-default .jstree-no-dots .jstree-leaf > ins { background:transparent; }
+.jstree-default .jstree-no-dots .jstree-open > ins { background-position:-18px 0; }
+.jstree-default .jstree-no-dots .jstree-closed > ins { background-position:0 0; }
+
+.jstree-default .jstree-no-icons a .jstree-icon { display:none; }
+
+.jstree-default .jstree-search { font-style:italic; }
+
+.jstree-default .jstree-no-icons .checkbox { display:inline-block; }
+.jstree-default .jstree-no-checkboxes .checkbox { display:none !important; }
+.jstree-default .jstree-checked > a > .checkbox { background-position:-38px -19px; }
+.jstree-default .jstree-unchecked > a > .checkbox { background-position:-2px -19px; }
+.jstree-default .jstree-undetermined > a > .checkbox { background-position:-20px -19px; }
+.jstree-default .jstree-checked > a > .checkbox:hover { background-position:-38px -37px; }
+.jstree-default .jstree-unchecked > a > .checkbox:hover { background-position:-2px -37px; }
+.jstree-default .jstree-undetermined > a > .checkbox:hover { background-position:-20px -37px; }
+
+.treeText:hover{ background:#e7f4f9; border:0px solid #d8f0fa;  }
+.treeText_selected{ background:#beebff; border:1px solid #99defd; padding:0 2px 0 0px; }
+
+#vakata-dragged.jstree-default ins { background:transparent !important;top:2px; }
+#vakata-dragged.jstree-default .jstree-ok { background:url("../images/list.png") -2px -53px no-repeat !important; }
+#vakata-dragged.jstree-default .jstree-invalid { background:url("../images/list.png") -18px -53px no-repeat !important; }
+#jstree-marker.jstree-default { background:url("../images/list.png") -41px -57px no-repeat !important; }
+
+.jstree-default a.jstree-search { color:aqua; }
+
+#vakata-contextmenu.jstree-default-context,
+#vakata-contextmenu.jstree-default-context li ul { background:#f0f0f0; border:1px solid #E0E4E5; -moz-box-shadow: 1px 1px 2px #ccc; -webkit-box-shadow: 1px 1px 2px #ccc; box-shadow: 1px 1px 2px #ccc; }
+#vakata-contextmenu.jstree-default-context li { }
+#vakata-contextmenu.jstree-default-context a { color:#06f; }
+#vakata-contextmenu.jstree-default-context a:hover,
+#vakata-contextmenu.jstree-default-context .vakata-hover > a { padding:0 5px; background:#e8eff7; border:1px solid #aecff7; color:black; -moz-border-radius:2px; -webkit-border-radius:2px; border-radius:2px; }
+#vakata-contextmenu.jstree-default-context li.vakata-separator { background:white; border-top:1px solid #e0e0e0; margin:0; }
+#vakata-contextmenu.jstree-default-context li ul { margin-left:-4px; }
+
+/* TODO: IE6 support - the `>` selectors */
+
+.zj_body .zj_lf .zj_lfbd h1{color:#464646;font-size: 16px;line-height: 30px;}
+.zj_body .zj_lf .zj_lfbd ul li{display:block;line-height: 24px;}
+.zj_body .zj_lf .zj_lfbd ul li div{height:24px;overflow:hidden;}
+.zj_body .zj_lf .zj_lfbd ul li ins{display:block;background:url(../images/icon.gif) no-repeat -206px -160px;margin-right: 8px;overflow: hidden;float: left;}
+.zj_body .zj_lf .zj_lfbd ul li ins.wja{width: 15px;height: 12px;margin-top: 4px;}
+.zj_body .zj_lf .zj_lfbd ul li ins.wjb{width: 15px;height: 12px;background-position: -206px -176px;margin-top: 4px;}
+.zj_body .zj_lf .zj_lfbd ul li ins.lina{width:20px;height: 22px;background-position: -183px 0px;}
+.zj_body .zj_lf .zj_lfbd ul li ins.linb{width:20px;height: 22px;background-position: -207px 0px;}
+.jstree ul, .jstree li {
+    display:block;
+    margin:0 0 0 0;
+    padding:0 0 0 0;
+    list-style-type:none;
+}
+.jstree li {
+    display:block;
+    min-height:24px;
+    line-height:24px;
+    white-space:nowrap;
+    margin-left:18px;
+}
+.jstree > ul > li {
+    margin-left:0px;
+}
+.jstree ins {
+    display:inline-block;
+    text-decoration:none;
+    width:18px;
+    height:18px;
+    margin:0 0 0 0;
+    padding:0;
+}
+#main #leftdiv .jstree a {
+    font-size:14px;
+    display:inline-block;
+    line-height:16px;
+    height:16px;
+    color:#333;
+    white-space:nowrap;
+    text-decoration:none;
+    margin:0;
+}
+.jstree a {
+    font-size: 14px;
+    display: inline-block;
+    line-height: 16px;
+    height: 16px;
+    color: #333;
+    white-space: nowrap;
+    text-decoration: none;
+    margin: 0px;
+}
+.jstree a:focus {
+    outline: none;
+}
+.jstree a > ins {
+    height:16px;
+    width:16px;
+}
+.jstree a > .jstree-icon {
+    margin-right:8px;
+}
+li.jstree-open > ul {
+    display:block;
+}
+li.jstree-closed > ul {
+    display:none;
+}
+
+#vakata-dragged {
+    display:block;
+    margin:0 0 0 0;
+    padding:4px 4px 4px 24px;
+    position:absolute;
+    left:-2000px;
+    top:-2000px;
+    line-height:16px;
+}
+
+#vakata-dragged ins {
+    display:block;
+    text-decoration:none;
+    width:16px;
+    height:16px;
+    margin:0 0 0 0;
+    padding:0;
+    position:absolute;
+    top:4px;
+    left:4px;
+}
+#vakata-dragged .jstree-ok {
+    background:green;
+}
+#vakata-dragged .jstree-invalid {
+    background:red;
+}
+#jstree-marker {
+    padding:0;
+    margin:0;
+    line-height:12px;
+    font-size:1px;
+    overflow:hidden;
+    height:12px;
+    width:8px;
+    position:absolute;
+    left:-45px;
+    top:-30px;
+    z-index:1000;
+    background-repeat:no-repeat;
+    display:none;
+    background-color:silver;
+}
+#vakata-contextmenu {
+    display:none;
+    position:absolute;
+    margin:0;
+    padding:0;
+    width:100px;
+    background:#ebebeb;
+    border:1px solid silver;
+}
+#vakata-contextmenu ul {
+    width:100px;
+}
+#vakata-contextmenu ul, #vakata-contextmenu li {
+    margin:0;
+    padding:0;
+    list-style-type:none;
+    display:block;
+}
+#vakata-contextmenu li {
+    line-height:20px;
+    height:20px;
+    position:relative;
+    padding:0px;
+}
+#vakata-contextmenu li a {
+    padding:1px 6px;
+    line-height:17px;
+    display:block;
+    text-decoration:none;
+    margin:1px 1px 0 1px;
+}
+#vakata-contextmenu li ins {
+    float:left;
+    width:16px;
+    height:16px;
+    text-decoration:none;
+    margin-right:2px;
+}
+#vakata-contextmenu li a:hover, #vakata-contextmenu li.vakata-hover > a {
+    background:gray;
+    color:white;
+}
+#vakata-contextmenu li ul {
+    display:none;
+    position:absolute;
+    top:-2px;
+    left:100%;
+    background:#ebebeb;
+    border:1px solid gray;
+}
+#vakata-contextmenu .right {
+    right:100%;
+    left:auto;
+}
+#vakata-contextmenu .bottom {
+    bottom:-1px;
+    top:auto;
+}
+#vakata-contextmenu li.vakata-separator {
+    min-height:0;
+    height:1px;
+    line-height:1px;
+    font-size:1px;
+    overflow:hidden;
+    margin:0 2px;
+    background:silver; /* border-top:1px solid #fefefe; */
+    padding:0;
+}
+.lisre{ background:url(../images/list3.png) repeat-y -90px;}
+.lisre ul{background:url(../images/list3.png) repeat-y -84px; margin-bottom:8px;}
+.lisre ul li{ margin-left:6px;}
+.lisre ul ul{ overflow:hidden; display:inline-block; padding-left:6px; background:url(../images/list3.png) repeat-y -78px;}

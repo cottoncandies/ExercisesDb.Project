@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="ExercisesDb.Web:war">
+    <output-path>$PROJECT_DIR$/ExercisesDb.Web/target</output-path>
+    <root id="archive" name="ExercisesDb.Web.war">
+      <element id="artifact" artifact-name="ExercisesDb.Web:war exploded" />
+    </root>
+  </artifact>
+</component>

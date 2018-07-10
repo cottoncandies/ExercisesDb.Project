@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <script src="/js/jquery-2.1.0.min.js" type="text/javascript"></script>
+    <script src="/js/ckeditor.js" type="text/javascript"></script>
+    <link href="/css/ceng.css" rel="stylesheet" type="text/css" />
+
+    <link href="/css/simplepop.css" rel="stylesheet" type="text/css" />
+    <script src="/js/simplepop.js" type="text/javascript"></script>
+
+    <style type="text/css">
+
+        /*设置编辑器滚动条样式，让与客户端一致*/
+        /**高级滚动条CSS:**/
+        ::-webkit-scrollbar {
+            width: 9px;
+            height: 9px;
+        }
+        ::-webkit-scrollbar-track,
+        ::-webkit-scrollbar-thumb {
+            border-radius: 999px;
+            border: 0px solid transparent;
+        }
+        ::-webkit-scrollbar-track {
+            box-shadow: 1px 1px 5px rgba(0,0,0,.2) inset;
+        }
+        ::-webkit-scrollbar-thumb {
+            min-height: 20px;
+            background-clip: content-box;
+            box-shadow: 0 0 0 5px rgba(0,0,0,.2) inset;
+        }
+        ::-webkit-scrollbar-corner {
+            background: transparent;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="topnavh" style="position:fixed; top:0; left: 0; z-index:100000;">
+    <a href="#AddQuestionContent2" id="A_st" class="tips">试题内容</a>
+    <a href="#AddQuestionAnswer2" id="A_da">试题答案</a>
+    <a href="#AddQuestionAnalytical2" id="A_jx">试题解析</a>
+    <a href="#AddQuestionAttr2" id="A_sx">试题属性</a>
+</div>
+<br /><br />
+<a name="AddQuestionContent2" class="hh">试题内容：</a>
+<div style=" height:430px; " id="AddQuestionContent">
+</div>
+<br>
+<a name="AddQuestionAnswer2" class="hh">试题答案：</a>
+<div style=" height:430px; " id="AddQuestionAnswer">
+</div>
+<br>
+<a name="AddQuestionAnalytical2" class="hh">试题解析：</a>
+<div style=" height:430px; " id="AddQuestionAnalytical">
+</div>
+<div class="conten" style=" height:250px; ">
+    <br>
+    <a name="AddQuestionAttr2" class="hh">试题属性：</a>
+
+    <div class="reg">
+        <div>
+            <label >题型：</label>
+            <select name="qType" id="Editor_Type" class="input1">
+            </select>
+        </div>
+        <div>
+            <label >考查能力：</label>
+            <select name="qType" id="Editor_Ability" class="input1">
+            </select>
+        </div>
+        <div>
+            <label >难度：</label>
+            <select name="qType" id="Editor_Difficulty" class="input1">
+            </select>
+        </div>
+        <div>
+            <label >分值：</label>
+            <input type="text" maxlength="4" id="Editor_Score" class="input" onkeyup="if(isNaN(value))execCommand('undo');Editor_ScoreOnkeyup();" onafterpaste="if(isNaN(value))execCommand('undo')" onblur="Editor_ScoreOnblur();"/>
+        </div>
+    </div>
+</div>
+<br />
+<div class="center"><input name="" type="button" class="butl" value="确认添加试题" onclick="addQuestionInfo();" /></div>
+
+<script src="/js/publicMethod.js" type="text/javascript"></script>
+<script src="/js/addQuestion.js" type="text/javascript"></script>
+
+</body>
+</html>

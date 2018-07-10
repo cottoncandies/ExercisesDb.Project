@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8"/>
+    <title>组卷 - 备课助手</title>
+    <meta name="viewport" content="width=device-width"/>
+    <script src="js/jquery-2.1.0.min.js" type="text/javascript"></script>
+
+</head>
+
+<body oncontextmenu="return ;" ondragstart="return false;" onselectstart="return false;"
+      onselect="document.selection.empty();">
+
+<link href="css/layout.css" rel="stylesheet" type="text/css"/>
+<link href="css/list.css" rel="stylesheet" type="text/css"/>
+<link href="css/tanchu.css" rel="stylesheet" type="text/css"/>
+<link href="css/main.css" rel="stylesheet" type="text/css"/>
+<script src="js/js_tool.js" type="text/javascript"></script>
+<script src="js/jquery.jstree.min.js" type="text/javascript"></script>
+<link href="css/simplepop.css" rel="stylesheet" type="text/css"/>
+<script src="js/simplepop.js" type="text/javascript"></script>
+<script src="js/layer.js"></script>
+
+<style type="text/css">
+    /**默认滚动条高度CSS代码**/
+    #treeContent {
+        height: 590px;
+        overflow-y: auto;
+    }
+
+    #rightHeight {
+        height: 600px;
+        padding-right: 9px;
+        overflow-y: auto;
+    }
+
+</style>
+
+<div class="wappw topnav">
+    <div class="nav">
+        <div class="subject-container">
+            <span><a id="clickTo" style="cursor: pointer" title="修改学段学科">&nbsp;</a></span>
+            <span id="CurrentPeriodSubject"></span>
+        </div>
+    </div>
+    <div class="stlan" id="testBasketIDHolder">
+        <a class="stl" id="testBasketID">试题篮<span id="stlCount"></span></a>
+    </div>
+</div>
+
+<div class="wappw mart" id="main">
+    <div class="waikuang" id="leftdiv" style="position:fixed; width:22%; height: auto; margin-top:0px;">
+        <div class="top">
+            <a id="knowledge" style="cursor: pointer">知识点</a><a id="chapter" style="cursor: pointer">教材版本</a><a
+                id="AsmSelect" style="display: none;cursor: pointer"
+                class="tips"></a>
+            <!--<span><a href="banben.html?isCollect=0&type=paper&from=1" title="修改学段学科">&nbsp;</a></span>-->
+
+            <span style=" display:none;" id="myTikuSelect">apaper</span>
+        </div>
+        <div class="waikuangbody" id="categorytop">
+            <div id="categorytreebox">
+                <div id="treeContent">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="rightdiv">
+        <div id="rightHeight">
+            <div class="sortSelect" id="stxx">
+
+            </div>
+            <div class="taiojian">
+                <span style="display:none;">已选条件：</span>
+
+                <span id="selectedSX" style="display:none;">
+                </span>
+
+                <span id="spanSTCount">共有试题0道</span>
+
+                <!--<a href="javascript:;" class="right" id="addAllTest" data="0">本页试题全部加入试卷</a>-->
+
+            </div>
+            <div id="stContent">
+
+            </div>
+        </div>
+        <div class="pages1" id="pageingNum">
+        </div>
+    </div>
+</div>
+<div class="cls"></div>
+
+<script src="js/publicMethod.js" type="text/javascript"></script>
+<script src="js/tikuTaojuanData.js" type="text/javascript"></script>
+<script src="js/tikuTestBasket.js" type="text/javascript"></script>
+<script type="text/javascript" language="javascript">
+    var flagIsZJZX = false; //设置当前页面不是组卷中心
+
+    $(document).ready(function () {
+        pageResize();
+        //eoWebBrowser.extInvoke("getMyPeriodSubject"); //获取学段学科
+    });
+
+    $(window).resize(function () {
+        pageResize();
+        v_jsLayer.reLayout(); //解决弹出层在 页面大小改变时也要改变的问题
+    });
+
+    function pageResize() {
+        var treeShow = $("#treeContent");
+        var leftTopHeight = 115;//160
+        var s = $(document).scrollTop();
+        var wHeight = $(window).height();
+        if (wHeight < ($(document).height() - s)) {
+            treeShow.css("height", wHeight - leftTopHeight);
+        } else {
+            treeShow.css("height", $(document).height() - s - leftTopHeight);
+        }
+
+        var rightContent = $("#rightHeight");
+        var rightTopHeight = 60; //105
+        if (wHeight < ($(document).height() - s)) {
+            rightContent.css("height", wHeight - rightTopHeight - 52); //52 分页高度
+        } else {
+            rightContent.css("height", $(document).height() - s - rightTopHeight - 52);
+        }
+    }
+
+    function returnMyPeriodSubject(period, subject) {
+        $("#CurrentPeriodSubject").text(period + subject);
+    }
+
+    $("#testBasketID").click(function () {
+        if ($("#stlCount").text() == "(0)") {
+            v_jsLayer.tipForTime("你的试卷篮是空的，去选题加入试卷吧！", 1000);
+        } else {
+            var section = $("#CurrentPeriodSubject").text();
+            var username = getQueryString("username");
+            window.location.href = "myLook.html?type=1&from=paper&section=" + section + "&username=" + username;
+        }
+    });
+
+    $("#knowledge").click(function () {
+        var username = getQueryString("username");
+        window.location.href = "knowledge.html?username=" + username;
+    });
+
+    $("#chapter").click(function () {
+        var username = getQueryString("username");
+        window.location.href = "chapter.html?username=" + username;
+    });
+
+    $("#AsmSelect").click(function () {
+        var username = getQueryString("username");
+        window.location.href = "aPaper.html?username=" + username;
+    });
+
+    $("#clickTo").click(function () {
+        var username = getQueryString("username");
+        var sectionStr = $("#CurrentPeriodSubject").text().toString().substring(0, 2);
+        var sectionCode;
+        if (sectionStr == "初中") {
+            sectionCode = 2;
+        } else if (sectionStr == "高中") {
+            sectionCode = 3;
+        }
+        window.location.href = "banben.html?isCollect=0&type=paper&from=1&section=" + sectionCode + "&username=" + username;
+    });
+
+</script>
+
+</body>
+</html>

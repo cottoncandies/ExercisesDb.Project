@@ -1,0 +1,282 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>备课助手-组卷</title>
+    <link type="text/css" href="css/user/base.css" rel="stylesheet"/>
+    <link href="css/user/layout.css" rel="stylesheet" type="text/css"/>
+    <link href="css/user/tanchu.css" rel="stylesheet" type="text/css"/>
+    <script src="js/publicMethod.js" type="text/javascript"></script>
+    <script type="text/javascript" src="js/js_tool.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="js/donetJs.js"></script>
+</head>
+<body oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;"
+      onselect="document.selection.empty();">
+<div class="cls">
+</div>
+<div class="wappw topnav2">
+    <div class="grzx">
+        <span class="tag">学科版本设置</span>
+    </div>
+</div>
+<div class="geren">
+    <!--<div class="left">-->
+    <!--<div class="njia">-->
+    <!--<a href="banben.html" class="active">学科版本设置</a>-->
+    <!--</div>-->
+    <!--</div>-->
+    <div class="right">
+        <div class="reg mgtop">
+            <div>
+                <label>
+                    学段：</label>
+                <select name="county" id="county" class="input1" onchange="return GetXueKe();">
+                    <!--
+                    <option value="0">请选择学段</option>
+                    <option value="1">初中</option>
+                    <option value="2">高中</option>
+                    <option value="3">小学</option>
+                        -->
+                </select>
+            </div>
+            <div>
+                <label>
+                    学科：</label>
+                <select id="xuekeSelect" class="input1">
+                    <!--<option value="0">请选择学科</option>-->
+                </select>
+            </div>
+            <div class="center">
+                <!--if (true || ViewBag.sessionUser != null && (ViewBag.sessionUser.BANBENSET == null || "0".Equals(ViewBag.sessionUser.BANBENSET) || ViewBag.sessionUser.USER_NAME == "beike" || ViewBag.sessionUser.USER_NAME == "ctt" || ViewBag.sessionUser.USER_NAME == "13475568522"))-->
+                <input name="" type="button" class="but" value="确认设置" onclick="return CheckEmpty();"/>
+                <input id="banbenback" name="" type="button" class="but" value="返回"
+                       onclick="javascript:history.go(-1);"/>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var v_jsLayer = new JSLayer();
+    var isCollect = "";
+    var type = "";
+    var from = "";
+    var username = "";
+    var nickname = "";
+    var lastSection = 0;
+    var v_xueduanRange = "";
+    var v_xuekeRange = "";
+    var v_xueduanRangeArr = [
+        "0-请选择学段",
+        "1-小学",
+        "2-初中",
+        "3-高中"
+    ];
+    var v_xuekeRangeArr = [
+        "0-请选择学科",
+
+        "101-语文",//小学
+        "102-数学",
+        "103-英语",
+
+        "201-语文",//初中
+        "202-数学",
+        "203-英语",
+        "204-物理",
+        "205-化学",
+        "206-生物",
+        "207-历史",
+        "208-地理",
+        "209-道德与法治",
+
+        "301-语文",//高中
+        "302-数学",
+        "303-英语",
+        "304-物理",
+        "305-化学",
+        "306-生物",
+        "307-历史",
+        "308-地理",
+        "309-政治"
+    ];
+    window.onload = function () {
+        type = getQueryString("type");
+        isCollect = getQueryString("isCollect");
+        from = getQueryString("from");
+        username = getQueryString("username");
+        nickname = getQueryString("nickname");
+        if (getQueryString("section") == null) {
+            lastSection = 0;
+        } else {
+            lastSection = getQueryString("section");
+        }
+        if (from == 0) {
+            window.document.getElementById("banbenback").style.display = "none";
+        } else if (from == 1) {
+            window.document.getElementById("banbenback").style.display = "block";
+        }
+//        GetXueKe();
+        initXueDuan();
+        initXueKe();
+        document.getElementById("county").value = "1";
+        GetXueKe();
+        document.getElementById("xuekeSelect").value = "101";
+    };
+
+    function initXueDuan() {
+        if (v_xueduanRange.length > 0) {
+            v_xueduanRangeArr = ["0-请选择学段"];
+            if (v_xueduanRange.indexOf("1") > -1) {
+                v_xueduanRangeArr[v_xueduanRangeArr.length] = "1-小学";
+            }
+            if (v_xueduanRange.indexOf("2") > -1) {
+                v_xueduanRangeArr[v_xueduanRangeArr.length] = "2-初中";
+            }
+            if (v_xueduanRange.indexOf("3") > -1) {
+                v_xueduanRangeArr[v_xueduanRangeArr.length] = "3-高中";
+            }
+        }
+        var v_xueduanSelect = document.getElementById("county");
+        for (var i = 0; i < v_xueduanRangeArr.length; i++) {
+            v_value = v_xueduanRangeArr[i].split("-")[0];
+            var v_text = v_xueduanRangeArr[i].split("-")[1];
+            v_xueduanSelect.options[v_xueduanSelect.length] = new Option(v_text, v_value);
+        }
+    }
+
+    function initXueKe() {
+        if (v_xuekeRange.length < 1) return;
+        for (var i = 1; i < v_xuekeRangeArr.length; i++) {
+            if (v_xuekeRange.indexOf(v_xuekeRangeArr[i].split("-")[0]) < 0) {
+                v_xuekeRangeArr[i] = "";
+            }
+        }
+    }
+
+    function GetXueKe() {
+        var v_xueduanVal = document.getElementById("county").value;
+        var v_xuekeSelect = document.getElementById("xuekeSelect");
+        v_xuekeSelect.innerHTML = "";
+        if (v_xueduanVal == "0") {
+            v_xuekeSelect.options[v_xuekeSelect.length] = new Option("请选择学科", "0");
+        } else if (v_xueduanVal == "1") {
+            for (var i = 0; i < v_xuekeRangeArr.length; i++) {
+                if (v_xuekeRangeArr[i].charAt(0) == "1" || v_xuekeRangeArr[i].charAt(0) == "0") {
+                    var v_value = v_xuekeRangeArr[i].split("-")[0];
+                    var v_text = v_xuekeRangeArr[i].split("-")[1];
+                    v_xuekeSelect.options[v_xuekeSelect.length] = new Option(v_text, v_value);
+                }
+            }
+        } else if (v_xueduanVal == "2") {
+            for (var i = 0; i < v_xuekeRangeArr.length; i++) {
+                if (v_xuekeRangeArr[i].charAt(0) == "2" || v_xuekeRangeArr[i].charAt(0) == "0") {
+                    var v_value = v_xuekeRangeArr[i].split("-")[0];
+                    var v_text = v_xuekeRangeArr[i].split("-")[1];
+                    v_xuekeSelect.options[v_xuekeSelect.length] = new Option(v_text, v_value);
+                }
+            }
+        } else if (v_xueduanVal == "3") {
+            for (var i = 0; i < v_xuekeRangeArr.length; i++) {
+                if (v_xuekeRangeArr[i].charAt(0) == "3" || v_xuekeRangeArr[i].charAt(0) == "0") {
+                    var v_value = v_xuekeRangeArr[i].split("-")[0];
+                    var v_text = v_xuekeRangeArr[i].split("-")[1];
+                    v_xuekeSelect.options[v_xuekeSelect.length] = new Option(v_text, v_value);
+                }
+            }
+        }
+    }
+
+    function js_getXueKeDuan(v_str) {
+        var v_xueke = v_str.substr(0, 1);
+        document.getElementById("county").value = v_xueke;
+        if (v_xueke == "1") {
+            document.getElementById("county1").style.display = "block";
+            document.getElementById("county2").style.display = "none";
+            document.getElementById("county3").style.display = "none";
+            document.getElementById("county1").value = v_str;
+        }
+
+        if (v_xueke == "2") {
+            document.getElementById("county2").value = v_str;
+            document.getElementById("county1").style.display = "none";
+            document.getElementById("county2").style.display = "block";
+            document.getElementById("county3").style.display = "none";
+        }
+
+        if (v_xueke == "3") {
+            document.getElementById("county3").value = v_str;
+            document.getElementById("county1").style.display = "none";
+            document.getElementById("county2").style.display = "none";
+            document.getElementById("county3").style.display = "block";
+
+        }
+    }
+
+    function CheckEmpty() {
+        var xueduan = "";
+        var xueke = "";
+        var xuekeName = "";
+        if (document.getElementById("county").value == "0") {
+            //$.jBox.tip('请选择学段', 'error', { timeout: 1000 });
+            v_jsLayer.tipForTime("请选择学段", 1000);
+            document.getElementById("county").focus();
+            return false;
+        }
+        if (document.getElementById("xuekeSelect").value == "0") {
+            //$.jBox.tip('请选择学段', 'error', { timeout: 1000 });
+            v_jsLayer.tipForTime("请选择学科", 1000);
+            document.getElementById("xuekeSelect").focus();
+            return false;
+        }
+        xueduan = document.getElementById("county").value;
+        xueke = document.getElementById("xuekeSelect").value;
+        xuekeName = document.getElementById("xuekeSelect").options[document.getElementById("xuekeSelect").selectedIndex].text;
+
+//        donet_updateXueKeDuan(document.getElementById("county").value, xueke, xuekeName);
+
+        location.href = "/login/setExamVersion?name=" + username + "&section=" + xueduan + "&subject=" + xuekeName + "&type=" + type + "&isCollect=" + isCollect + "&last=" + lastSection +"&nickname="+nickname
+//        location.href = encodeURI("/login/setExamVersion?name=" + username + "&section=" + xueduan + "&subject=" + xuekeName + "&type=" + type + "&isCollect=" + isCollect + "&last=" + lastSection +"&nickname="+nickname , "UTF-8");
+//        location.href = "/login/setExamVersion?name=" + username + "&section=" + xueduan + "&subject=" + xuekeName + "&type=" + type + "&isCollect=" + isCollect + "&last=" + lastSection;
+
+    }
+
+    function js_GetValue(result) {
+        if (result == "True") {
+            //$.jBox.tip('更新成功', 'success', { timeout: 1000 });
+            v_jsLayer.tipForTime("更新成功", 1000);
+        }
+        else {
+            //$.jBox.tip('更新失败', 'error', { timeout: 1000 });
+            v_jsLayer.tipForTime("更新失败", 1000);
+        }
+    }
+
+    //设置cookie
+    function setCookie(name, value, day) {
+        var date = new Date();
+        date.setDate(date.getDate() + day);
+        document.cookie = name + '=' + value + ';expires=' + date;
+    }
+
+    //获取cookie
+    function getCookie(name) {
+        var reg = RegExp(name + '=([^;]+)');
+        var arr = document.cookie.match(reg);
+        if (arr) {
+            return arr[1];
+        } else {
+            return '';
+        }
+    }
+
+    //删除cookie
+    function delCookie(name) {
+        setCookie(name, null, -1);
+    }
+</script>
+<div style="display: none;">
+    <!--<script src="http://s4.cnzz.com/stat.php?id=1256310689&web_id=1256310689" language="JavaScript"></script>-->
+</div>
+</body>
+</html>

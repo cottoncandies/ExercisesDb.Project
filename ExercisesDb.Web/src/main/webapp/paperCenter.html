@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <title>组卷 - 备课助手</title>
+    <meta name="viewport" content="width=device-width" />
+    <script src="js/jquery-2.1.0.min.js" type="text/javascript"></script>
+
+</head>okokokokok
+
+<body oncontextmenu="return ;" ondragstart="return false;" onselectstart="return false;" onselect="document.selection.empty();">
+
+
+<link href="css/layout.css" rel="stylesheet" type="text/css" />
+<link href="css/list.css" rel="stylesheet" type="text/css" />
+<link href="css/tanchu.css" rel="stylesheet" type="text/css" />
+<link href="css/main.css" rel="stylesheet" type="text/css" />
+<script src="js/js_tool.js" type="text/javascript"></script>
+<script src="js/jquery.jstree.min.js" type="text/javascript"></script>
+<link href="css/simplepop.css" rel="stylesheet" type="text/css" />
+<script src="js/simplepop.js" type="text/javascript"></script>
+<script src="js/layer.js"></script>
+
+<div class="wappw topnav">
+    <div class="nav">
+        <a href="/beike/NetResource">在线题库</a>
+        <a href="/zujuan/chapter">精品题库</a>
+
+        <a class="tips" href="/zujuan/paperCenter">我的题库</a>
+        <a href="/zujuan/myPaperList">组成的作业</a>
+        <a href="/zujuan/chengjizhanshi">成绩展示</a>
+    </div>
+
+    <div class="stlan" style="width:150px">
+        <img alt="" width="45px" height="45px" src="/medias/1488191537961.jpg" /><span>小美</span>
+    </div>
+    <div class="stlan">
+        <a class="fanhui" href="#" onclick="javascript:history.go(-1)">返回</a>
+    </div>
+    <div class="stlan" id="testBasketIDHolder" onmousemove="javascript:$('#stlDiv').show();" onmouseout="javascript:$('#stlDiv').hide();">
+        <a href="/zujuan/paperCenter" class="stl" id="testBasketID">试题篮<span id="questionCountTip">(0)</span></a>
+        <div class="cart-list" id="stlDiv">
+            <p id="cartEmptyText">共<span id="questionCount">0</span>题，难度系数：<span id="questionDiffValue">0</span>，平均难度：<span id="questionDiffText">中</span></p>
+            <div id="questionTypeCount">
+            </div>
+            <div id="cartEmptyTS">
+            </div>
+            <div id="cartEmptyInput">
+                <input type="button" class="deleteall" value="清空全部" />
+                <input type="button" class="generate" value="进入我的题库" onclick="javascript:location.href='/zujuan/paperCenter';" />
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<link href="css/ceng.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+    #pui_main {
+        /*min-height:620px;*/
+        height: 640px;
+        overflow-y: auto;
+    }
+</style>
+
+<div id="mainzj" style="position: relative; margin-right:0.5%" class="wappw5">
+    <div id="rightdiv">
+        <div id="pui_box">
+            <div id="pui_root" align="left">
+                <div id="pui_main">
+                    <div id="pui_head">
+                        <div id="pui_title">
+                            <div id="pui_maintitle" title="点击设置&quot;试卷主标题&quot;" style="color: rgb(0, 0, 0); cursor: pointer;  margin-top:10px;">试卷标题：___________</div>
+                        </div>
+                        <div id="pui_testinfo" title="点击设置&quot;试卷信息栏&quot;" style="color: rgb(0, 0, 0); cursor: pointer; position: static; display: block;">
+                            考试范围：___________；考试时间：___________；命题人：___________；满分：<span id="pui_testinfo_score">0</span>分
+                            <div style="position: absolute; top: 0px; left: 0px; z-index: 9999999; background-color: rgb(255, 255, 0); opacity: 0; width: 1454px; height: 18px; display: none;"></div>
+                        </div>
+                        <div id="pui_inputInfo" style="color: rgb(0, 0, 0); position: static; display: block;">
+                            学校：___________班级：___________姓名：___________考号：___________
+                            <div style="position: absolute; top: 0px; left: 0px; z-index: 9999999; background-color: rgb(255, 255, 0); opacity: 0; width: 1454px; height: 18px; display: none;"></div>
+                        </div>
+                        <div id="pui_score">
+                        </div>
+                    </div>
+                    <div id="pui_body" style=" min-height:350px;">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="rightmenu">
+        <div>
+            <!--id="wanc"-->
+            <a  href="#" title="完成组卷"></a>
+            <a id="newtype" href="#" onclick="add_question_type()" title="添加新题型">
+
+                <img style="width:55px; height:55px;" src="/Content/images/newtype.png" /></br><span style="color:#02a499;" >添加题型</span>
+            </a>
+            <a id="aOpen" href="#OpenWindow" rel="leanModal" style=" display:none;">弹出信息层</a>
+            <a id="aOpen_Detail" href="#OpenWindow_Detail" rel="leanModal" style=" display:none;">弹出详细层</a>
+            <a id="aOpen_Score" href="#OpenWindow_Score" rel="leanModal" style=" display:none;">弹出分数层</a>
+
+        </div>
+        <div id="add_tixing">
+
+
+
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="js/publicMethod.js" type="text/javascript"></script>
+<script src="js/tikuTestBasket.js" type="text/javascript"></script>
+<script src="js/tikuTestCenter.js" type="text/javascript"></script>
+<script src="js/jquery.leanModal.min.js" type="text/javascript"></script>
+<script language="javascript" type="text/javascript">
+
+    var flagIsZJZX = true; //设置当前页面是组卷中心，在组卷中心清除题型或者清空试题篮后要重新加载页面
+
+    $(document).ready(function () {
+        pageResize();
+        $('a[rel*=leanModal]').leanModal({ top: 115, closeButton: ".modal_close" });//130
+    });
+
+    $(window).resize(function () {
+        pageResize();
+        v_jsLayer.reLayout(); //解决弹出层在 页面大小改变时也要改变的问题
+    });
+
+    function pageResize() {
+        var rightContent = $("#pui_main");
+        var rightTopHeight = 45; //91
+        var s = $(document).scrollTop();
+        var wHeight = $(window).height();
+        if (wHeight < ($(document).height() - s)) {
+            rightContent.css("height", wHeight - rightTopHeight);
+        } else {
+            rightContent.css("height", $(document).height() - s - rightTopHeight);
+        }
+    }
+
+</script>
+
+<div id="OpenWindow">
+    <div id="signup-ct">
+        <div id="OpenWindow-header">
+            <h2>设置试卷信息</h2>
+            <p>以下都是必填项</p>
+            <a href="#" class="modal_close" title="关闭"></a>
+        </div>
+        <div class="txt-fld">
+            <label for="">试卷标题：</label>
+            <input type="text" name="" id="paperName" value="" /> <!--class="good_input"-->
+        </div>
+        <div class="txt-fld">
+            <label for="">考试范围：</label>
+            <input type="text" name="" id="paperRange" value="" />
+        </div>
+        <div class="txt-fld">
+            <label for="">考试时间：</label>
+            <input type="text" name="" id="examTime" value="" />
+        </div>
+        <div class="txt-fld">
+            <label for="">命题人：</label>
+            <input type="text" name="" id="examIners" value="" />
+        </div>
+        <div class="txt-fld">
+            <label for="">满分：</label>
+            <input type="text" name="" id="examScore" value="120" disabled="disabled" />
+        </div>
+        <div class="btn-fld">
+            <label id='submitPaperInfoLabel' style='color:red; display:none;'>以上都是必填项，试卷信息不能为空</label>
+            <button id="submitPaperInfo">确定设置</button>
+        </div>
+    </div>
+</div>
+
+<div id="OpenWindow_Detail">
+    <div id="OpenWindow-header_Detail">
+        <h2>试题详情</h2>
+        <a href="#" class="modal_close" title="关闭"></a>
+    </div>
+    <div class="txt-fld" id="stContent" style=" height:508px; overflow-y:auto;">
+
+    </div>
+</div>
+
+<div id="OpenWindow_Score">
+    <div id="signup-ct">
+        <div id="OpenWindow-header_Score">
+            <h2>设置试题分数</h2>
+            <p>分数是必填项</p>
+            <a href="#" class="modal_close" title="关闭"></a>
+        </div>
+        <div class="txt-fld">
+            <label id="editorScoreType">分数：</label>
+            <input type="text" name="" id="editorScoreValue" value="0" onkeyup="if(isNaN(value))execCommand('undo');checkInputScoreOnkeyup();" onafterpaste="if(isNaN(value))execCommand('undo')" onblur="checkInputScoreOnblur();" />
+        </div>
+        <div class="btn-fld">
+            <label id='setQuestionScoreValueTS' style='color:red; display:none;'>分数不能为空，只能有一位小数点</label>
+            <input type="hidden" value="0" id="EditScoreQuestionId" />
+            <button id="submitPaperInfoScore">确定设置</button>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>ExercisesDb</groupId>
+    <artifactId>ExercisesDb.Project</artifactId>
+    <version>1.0</version>
+    <packaging>pom</packaging>
+    <name>Project</name>
+
+    <modules>
+        <module>ExercisesDb.Common</module>
+        <module>ExercisesDb.Services</module>
+        <module>ExercisesDb.Web</module>
+    </modules>
+
+    <properties>
+        <project.version>1.0</project.version>
+        <jdk.version>1.8</jdk.version>
+        <build.sourceEncoding>UTF-8</build.sourceEncoding>
+        <compiler.encoding>UTF-8</compiler.encoding>
+        <jfinal.version>3.3</jfinal.version>
+        <junit.version>3.8.1</junit.version>
+        <servlet.api.version>3.1.0</servlet.api.version>
+        <websocket.api.version>1.1</websocket.api.version>
+        <junit.version>4.11</junit.version>
+        <pgsql.version>42.1.4</pgsql.version>
+        <mysql.version>5.1.20</mysql.version>
+        <log4j.version>1.2.17</log4j.version>
+        <slf4j-log4j12.version>1.7.21</slf4j-log4j12.version>
+        <slf4j-api.version>1.7.21</slf4j-api.version>
+        <druid.version>1.0.29</druid.version>
+        <ehcache.version>2.10.2.2.21</ehcache.version>
+        <javax.mail.version>1.5.5</javax.mail.version>
+        <fastjson.version>1.2.12</fastjson.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- COMPILE BEGIN-->
+            <dependency>
+                <groupId>com.jfinal</groupId>
+                <artifactId>jetty-server</artifactId>
+                <version>8.1.8</version>
+                <!--
+                    此处的 scope 值为 compile 仅为支持 IDEA 下启动项目
+                    打 war 包时需要改成 provided，以免将一些无用的 jar 打进去
+                -->
+                <scope>compile</scope>
+            </dependency>
+            <!--COMPILE END-->
+
+            <!--TESTING BEGIN-->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <!--TESTING END-->
+
+            <!--BASE BEGIN-->
+            <dependency>
+                <groupId>com.jfinal</groupId>
+                <artifactId>jfinal</artifactId>
+                <version>${jfinal.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${servlet.api.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>javax.websocket</groupId>
+                <artifactId>javax.websocket-api</artifactId>
+                <version>${websocket.api.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${pgsql.version}</version>
+            </dependency>
+            <!--LOG Begin -->
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${log4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>${slf4j-log4j12.version}</version>
+            </dependency>
+            <!--LOG End -->
+
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.jfinal</groupId>
+                <artifactId>cos</artifactId>
+                <version>2017.5</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.mail</groupId>
+                <artifactId>javax.mail-api</artifactId>
+                <version>${javax.mail.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.sf.ehcache</groupId>
+                <artifactId>ehcache</artifactId>
+                <version>${ehcache.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+            <!--BASE END-->
+
+            <!-- iText BEGIN -->
+            <!-- always needed -->
+            <dependency>
+                <groupId>com.itextpdf</groupId>
+                <artifactId>kernel</artifactId>
+                <version>7.0.5</version>
+            </dependency>
+
+            <!-- always needed -->
+            <dependency>
+                <groupId>com.itextpdf</groupId>
+                <artifactId>io</artifactId>
+                <version>7.0.5</version>
+            </dependency>
+
+            <!-- always needed -->
+            <dependency>
+                <groupId>com.itextpdf</groupId>
+                <artifactId>layout</artifactId>
+                <version>7.0.5</version>
+            </dependency>
+
+            <!-- only needed for forms -->
+            <dependency>
+                <groupId>com.itextpdf</groupId>
+                <artifactId>forms</artifactId>
+                <version>7.0.5</version>
+            </dependency>
+
+            <!-- only needed for PDF/A -->
+            <dependency>
+                <groupId>com.itextpdf</groupId>
+                <artifactId>pdfa</artifactId>
+                <version>7.0.5</version>
+            </dependency>
+
+            <!-- only needed for digital signatures -->
+            <dependency>
+                <groupId>com.itextpdf</groupId>
+                <artifactId>sign</artifactId>
+                <version>7.0.5</version>
+            </dependency>
+
+            <!-- only needed for barcodes -->
+            <dependency>
+                <groupId>com.itextpdf</groupId>
+                <artifactId>barcodes</artifactId>
+                <version>7.0.5</version>
+            </dependency>
+
+            <!-- only needed for Asian fonts -->
+            <dependency>
+                <groupId>com.itextpdf</groupId>
+                <artifactId>font-asian</artifactId>
+                <version>7.0.5</version>
+            </dependency>
+
+            <!-- only needed for hyphenation -->
+            <dependency>
+                <groupId>com.itextpdf</groupId>
+                <artifactId>hyph</artifactId>
+                <version>7.0.5</version>
+            </dependency>
+            <!-- iText END -->
+
+            <!-- Apache Commons Begin -->
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>1.1.1</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-lang</groupId>
+                <artifactId>commons-lang</artifactId>
+                <version>2.6</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-collections</groupId>
+                <artifactId>commons-collections</artifactId>
+                <version>3.2.1</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>1.6</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-beanutils</groupId>
+                <artifactId>commons-beanutils</artifactId>
+                <version>1.8.3</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>2.0.1</version>
+            </dependency>
+            <!-- Apache Commons End -->
+
+            <!-- Caucho BEGIN  -->
+            <dependency>
+                <groupId>org.quartz-scheduler</groupId>
+                <artifactId>quartz</artifactId>
+                <version>2.2.1</version>
+            </dependency>
+            <!-- Caucho END  -->
+            <!-- POI BEGIN -->
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>3.10-FINAL</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>ooxml-schemas</artifactId>
+                <version>1.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>3.10-FINAL</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>openxml4j</artifactId>
+                <version>1.0-beta</version>
+            </dependency>
+            <!-- POI END -->
+
+            <!-- ANT BEGIN -->
+            <dependency>
+                <groupId>org.apache.ant</groupId>
+                <artifactId>ant</artifactId>
+                <version>1.9.4</version>
+            </dependency>
+            <!-- ANT END -->
+        </dependencies>
+    </dependencyManagement>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>2.3.2</version>
+                    <configuration>
+                        <source>${jdk.version}</source>
+                        <target>${jdk.version}</target>
+                        <encoding>UTF-8</encoding>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>2.6</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>2.4</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+    <!-- 使用阿里 maven 库 -->
+    <repositories>
+        <repository>
+            <id>ali-maven</id>
+            <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+                <checksumPolicy>fail</checksumPolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+</project>
